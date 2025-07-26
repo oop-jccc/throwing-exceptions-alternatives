@@ -1,5 +1,25 @@
 namespace throw_exception_alternative;
-// TODO: Create a CustomUnauthorizedException class that inherits from Exception
+
+public class CustomUnauthorizedException : Exception
+{
+    public CustomUnauthorizedException()
+        : base("Unauthorized: Invalid username or password")
+    {
+        // Empty body
+    }
+
+    public CustomUnauthorizedException(string message)
+        : base(message)
+    {
+        // Empty body
+    }
+
+    public CustomUnauthorizedException(string message, Exception inner)
+        : base(message, inner)
+    {
+        // Empty body
+    }
+}
 
 public record User
 {
@@ -18,8 +38,7 @@ public static class AuthService
 
         if (username != "admin" || password != "password")
         {
-            // TODO: Uncomment this line after you have created the CustomUnauthorizedException class
-            // throw new CustomUnauthorizedException("Invalid username or password");
+            throw new CustomUnauthorizedException("Invalid username or password");
         }
 
         return new User
@@ -52,7 +71,6 @@ public class Tests
     [Test]
     public void TestNonAdmin()
     {
-        // TODO: Uncomment this line after you have created the CustomUnauthorizedException class
-        // Assert.Throws<CustomUnauthorizedException>(() => { AuthService.Authenticate("user555", "password"); });
+        Assert.Throws<CustomUnauthorizedException>(() => { AuthService.Authenticate("user555", "password"); });
     }
 }
